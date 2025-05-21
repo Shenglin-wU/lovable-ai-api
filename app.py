@@ -7,6 +7,11 @@ UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# ✅ 首頁路由（Render 預設會打開 /，所以這段必加）
+@app.route('/')
+def home():
+    return 'API 正在運行中，請使用 /upload 上傳圖片進行模擬排版。'
+
 @app.route('/upload', methods=['POST'])
 def upload_image():
     if 'image' not in request.files:
