@@ -7,7 +7,7 @@ UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# ✅ 首頁路由（Render 預設會打開 /，所以這段必加）
+# ✅ 首頁路由：避免 Render 進首頁時出現 404
 @app.route('/')
 def home():
     return 'API 正在運行中，請使用 /upload 上傳圖片進行模擬排版。'
@@ -21,7 +21,6 @@ def upload_image():
     save_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(save_path)
 
-    # 模型邏輯之後會放這裡，現在先假裝完成
     return jsonify({
         'status': 'success',
         'filename': file.filename,
